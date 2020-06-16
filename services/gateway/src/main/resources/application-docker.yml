@@ -1,0 +1,13 @@
+management:
+  metrics:
+    export:
+      prometheus:
+        rsocket:
+          host: prometheus-proxy
+spring:
+  zipkin:
+    base-url: http://zipkin-server:9411/
+ui:
+  url: http://ui
+web:
+  url: http://ec-web:9000
