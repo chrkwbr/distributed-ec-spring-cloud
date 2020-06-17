@@ -14,16 +14,14 @@ class Gateway
 val beans = beans {
     bean<AccessLoggingGatewayFilterFactory>()
     bean("meterFilter") {
-        MeterFilter.deny() {
+        MeterFilter.deny {
             it.getTag("uri")?.startsWith("/actuator") ?: false
         }
     }
 }
 
 class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext> {
-    override fun initialize(applicationContext: GenericApplicationContext) {
-        beans.initialize(applicationContext)
-    }
+    override fun initialize(applicationContext: GenericApplicationContext) = beans.initialize(applicationContext)
 }
 
 fun main(args: Array<String>) {
