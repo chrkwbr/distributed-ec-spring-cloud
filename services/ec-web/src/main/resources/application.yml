@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 0
 logging:
   exception-conversion-word: "\t%replace(%replace(%xEx){'\n','@n@'}){'\t','    '}%nopex"
   pattern:
@@ -21,6 +21,13 @@ management:
         rsocket:
           host: localhost
 spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+#        instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}
+        instance-id: ${spring.application.name}:${random.int[1,999999]}
   sleuth:
     web:
       additional-skip-pattern: /actuator.*

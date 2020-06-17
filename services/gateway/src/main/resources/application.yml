@@ -30,19 +30,27 @@ spring:
     sampler:
       rate: 30
   cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        #        instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}
+        instance-id: ${spring.application.name}:${random.int[1,999999]}
     gateway:
       routes: 
         - id: web_path_route
-          uri: ${web.url:${vcap.services.concierge-web.credentials.url:http://localhost:9000}}
+          uri: ${web.url:lb://ec-web}
           predicates:
             - Path=/api/**
           filters:
             - name: AccessLogging
             - RewritePath=/api/(?<path>.*), /$\{path}
         - id: ui_path_route
-          uri: ${ui.url:${vcap.services.concierge-ui.credentials.url:http://localhost:8000}}
+          uri: ${ui.url:http://localhost:8000}
           predicates:
             - Path=/**
           filters:
             - name: AccessLogging
             - RewritePath=/(?<path>.*), /$\{path}
+      loadbalancer:
+        use404: true

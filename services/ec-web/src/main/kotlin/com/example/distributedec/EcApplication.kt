@@ -1,5 +1,6 @@
 package com.example.distributedec
 
+import com.example.distributedec.router.routes
 import io.micrometer.core.instrument.config.MeterFilter
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
@@ -11,6 +12,7 @@ import org.springframework.context.support.beans
 class EcApplication
 
 val beans = beans {
+    bean { routes() }
     bean("meterFilter") {
         MeterFilter.deny() {
             it.getTag("uri")?.startsWith("/actuator") ?: false
@@ -19,9 +21,7 @@ val beans = beans {
 }
 
 class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext> {
-    override fun initialize(applicationContext: GenericApplicationContext) {
-        beans.initialize(applicationContext)
-    }
+    override fun initialize(applicationContext: GenericApplicationContext) = beans.initialize(applicationContext)
 }
 
 fun main(args: Array<String>) {
