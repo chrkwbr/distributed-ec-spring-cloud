@@ -1,5 +1,3 @@
-server:
-  port: 8080
 logging:
   exception-conversion-word: "\t%replace(%replace(%xEx){'\n','@n@'}){'\t','    '}%nopex"
   pattern:
@@ -14,30 +12,27 @@ management:
       exposure:
         include: info,health,prometheus,gateway
   metrics:
-    tags:
-      organization: example.com
-      space: develop
-      application: ${spring.application.name}
-      instance_id: ${management.metrics.tags.application}:0
     export:
       prometheus:
         rsocket:
           host: localhost
+    tags:
+      application: ${spring.application.name}
+      instance_id: ${management.metrics.tags.application}:0
+      organization: example.com
+      space: develop
+server:
+  port: 8080
 spring:
-  sleuth:
-    web:
-      additional-skip-pattern: /actuator.*
-    sampler:
-      rate: 30
   cloud:
     consul:
-      host: localhost
-      port: 8500
       discovery:
         #        instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}
         instance-id: ${spring.application.name}:${random.int[1,999999]}
+#      host: localhost
+#      port: 8500
     gateway:
-      routes: 
+      routes:
         - id: web_path_route
           uri: ${web.url:lb://ec-web}
           predicates:
@@ -54,3 +49,10 @@ spring:
             - RewritePath=/(?<path>.*), /$\{path}
       loadbalancer:
         use404: true
+      metrics:
+        enabled: true
+  sleuth:
+    sampler:
+      rate: 30
+    web:
+      additional-skip-pattern: /actuator.*
