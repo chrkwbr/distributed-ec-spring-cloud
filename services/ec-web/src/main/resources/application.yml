@@ -26,8 +26,8 @@ spring:
       discovery:
         #        instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}
         instance-id: ${spring.application.name}:${random.int[1,999999]}
-      host: localhost
-      port: 8500
+#      host: localhost
+#      port: 8500
   sleuth:
     sampler:
       rate: 30

@@ -1,3 +1,4 @@
+
 logging:
   exception-conversion-word: "\t%replace(%replace(%xEx){'\n','@n@'}){'\t','    '}%nopex"
   pattern:
@@ -32,6 +33,9 @@ spring:
 #      host: localhost
 #      port: 8500
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
         - id: web_path_route
           uri: ${web.url:lb://ec-web}

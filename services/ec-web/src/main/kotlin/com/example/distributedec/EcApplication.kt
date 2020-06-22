@@ -2,6 +2,7 @@ package com.example.distributedec
 
 import com.example.distributedec.router.routes
 import io.micrometer.core.instrument.config.MeterFilter
+import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.ApplicationContextInitializer
@@ -25,7 +26,9 @@ class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext
 }
 
 fun main(args: Array<String>) {
-    SpringApplicationBuilder(EcApplication::class.java)
+    SpringApplicationBuilder()
+            .sources(EcApplication::class.java)
             .properties("context.initializer.classes=${BeansInitializer::class.java.name}")
+            .web(WebApplicationType.REACTIVE)
             .run(*args)
 }
