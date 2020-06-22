@@ -8,7 +8,7 @@ fun routes(goodsHandler: GoodsHandler) = router {
     GET("/") {
         ok().bodyValue("hello world")
     }
-    GET("/goods").nest {
+    "/goods".nest {
         GET("/") {
             ok().body(goodsHandler.findAll(), Goods::class.java)
         }
