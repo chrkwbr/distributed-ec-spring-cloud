@@ -1,8 +1,12 @@
+server:
+  port: 0
 logging:
   exception-conversion-word: "\t%replace(%replace(%xEx){'\n','@n@'}){'\t','    '}%nopex"
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${logging.pattern.level:%5p}) %clr(${PID: }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %replace(%m){'\n','@n@'}${logging.exception-conversion-word:%wEx}%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${logging.pattern.level:%5p} ${PID: } --- [%15.15t] %-40.40logger{39} : %replace(%m){'\n','@n@'}${logging.exception-conversion-word:%wEx}%n"
+  level:
+    org.springframework.data.r2dbc: DEBUG
 management:
   endpoints:
     web:
@@ -18,9 +22,11 @@ management:
       instance_id: ${management.metrics.tags.application}:0
       organization: example.com
       space: develop
-server:
-  port: 0
 spring:
+  r2dbc:    
+    url: r2dbc:h2:mem:///test?options=DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    name: sa
+    password: 
   cloud:
     consul:
       discovery:
@@ -33,3 +39,4 @@ spring:
       rate: 30
     web:
       additional-skip-pattern: /actuator.*
+  

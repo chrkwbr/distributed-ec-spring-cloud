@@ -1,3 +1,5 @@
 package com.example.distributedec.domain.goods
 
-data class Goods(val id: Long, val name: String)
+import org.springframework.data.annotation.Id
+
+data class Goods(@Id val id: Long, val name: String)
