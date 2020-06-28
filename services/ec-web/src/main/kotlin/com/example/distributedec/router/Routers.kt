@@ -1,19 +1,26 @@
 package com.example.distributedec.router
 
-import com.example.distributedec.domain.goods.Goods
-import com.example.distributedec.domain.goods.GoodsHandler
+import com.example.distributedec.domain.goods.Item
+import com.example.distributedec.domain.goods.ItemHandler
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.router
 
-fun routes(goodsHandler: GoodsHandler) = router {
-    GET("/") {
-        ok().bodyValue("hello world")
-    }
-    "/goods".nest {
+@Configuration
+class Routers {
+    @Bean
+    fun routes(itemHandler: ItemHandler) = router {
         GET("/") {
-            ok().body(goodsHandler.findAll(), Goods::class.java)
+            ok().bodyValue("hello world")
         }
-        GET("/{id}") {req -> 
-            ok().body(goodsHandler.findById(req.pathVariable("id").toLong()), Goods::class.java)
+        "/items".nest {
+            GET("/") {
+                ok().body(itemHandler.findAll(), Item::class.java)
+            }
+            GET("/{id}") {req ->
+                ok().body(itemHandler.findById(req.pathVariable("id").toLong()), Item::class.java)
+            }
         }
     }
 }
+
