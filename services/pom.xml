@@ -36,6 +36,7 @@
 
     <zipkin.brave.instrumentation>5.9.0</zipkin.brave.instrumentation>
     <micrometer.prometheus>0.9.0</micrometer.prometheus>
+    <r2dbc.mariadb.version>0.8.2-alpha2</r2dbc.mariadb.version>
   </properties>
 
   <dependencyManagement>
@@ -63,6 +64,12 @@
         <groupId>io.micrometer.prometheus</groupId>
         <artifactId>prometheus-rsocket-spring</artifactId>
         <version>${micrometer.prometheus}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mariadb</groupId>
+        <artifactId>r2dbc-mariadb</artifactId>
+        <version>${r2dbc.mariadb.version}</version>
       </dependency>
     </dependencies>
 
