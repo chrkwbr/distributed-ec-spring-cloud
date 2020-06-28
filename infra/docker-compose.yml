@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+  consul:
+    image: consul:latest
+    build: ./consul
+    volumes:
+    - ./consul/config/consul-config.json:/consul/config/config.json
+    - ./consul/data:/consul/data
+    ports: 
+    - 8500:8500
+    command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect 1 -config-file=/consul/config/config.json
+
+  mariadb:
+    image: mariadb/server:latest
+    build: ./mariadb/
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - ./mariadb/db:/docker-entrypoint-initdb.d
+    environment:
+    - MYSQL_USER=root
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports: 
+    - 3306:3306
+    
+  zipkin-server:
+    image: openzipkin/zipkin-slim
+    ports:
+    - 9411:9411
+    environment:
+    - "_JAVA_OPTIONS=-Xmx80m -XX:ReservedCodeCacheSize=32M -Xss512k"
