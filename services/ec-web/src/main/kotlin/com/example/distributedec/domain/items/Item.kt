@@ -1,4 +1,4 @@
-package com.example.distributedec.domain.goods
+package com.example.distributedec.domain.items
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table

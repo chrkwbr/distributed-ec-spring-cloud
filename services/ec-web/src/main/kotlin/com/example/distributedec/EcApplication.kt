@@ -1,6 +1,6 @@
 package com.example.distributedec
 
-import com.example.distributedec.domain.goods.ItemHandler
+import com.example.distributedec.domain.items.ItemHandler
 import io.micrometer.core.instrument.config.MeterFilter
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

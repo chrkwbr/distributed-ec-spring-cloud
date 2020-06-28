@@ -1,4 +1,4 @@
-package com.example.distributedec.domain.goods
+package com.example.distributedec.domain.items
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
