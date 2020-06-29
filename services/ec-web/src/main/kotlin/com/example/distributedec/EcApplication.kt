@@ -1,9 +1,11 @@
 package com.example.distributedec
 
 import com.example.distributedec.domain.items.ItemHandler
+import com.example.distributedec.router.routes
 import io.micrometer.core.instrument.config.MeterFilter
+import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.context.support.beans
@@ -12,9 +14,8 @@ import org.springframework.context.support.beans
 class EcApplication
 
 val beans = beans {
-//    bean { runner(ref(), ref()) }
     bean { ItemHandler(ref()) }
-//    bean { routes(ref()) }
+    bean { routes(ref()) }
     bean("meterFilter") {
         MeterFilter.deny {
             it.getTag("uri")?.startsWith("/actuator") ?: false
@@ -27,10 +28,9 @@ class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext
 }
 
 fun main(args: Array<String>) {
-//    SpringApplicationBuilder()
-//            .sources(EcApplication::class.java)
-//            .properties("context.initializer.classes=${BeansInitializer::class.java.name}")
-//            .web(WebApplicationType.REACTIVE)
-//            .run(*args)
-    runApplication<EcApplication>(*args)
+    SpringApplicationBuilder()
+            .sources(EcApplication::class.java)
+            .properties("context.initializer.classes=${BeansInitializer::class.java.name}")
+            .web(WebApplicationType.REACTIVE)
+            .run(*args)
 }
