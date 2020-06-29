@@ -4,14 +4,14 @@
 
 1. Install `java11` and `docker`, `docker-compose`
 
-2. create docker network
+2. Build Docker images
 ```
-docker network create demo
+cd infra
+docker-compose build
 ```
 
 3. Run infrastructures
 ```
-cd infra
-docker-compose up
+docker-compose up -d
 ```
 
