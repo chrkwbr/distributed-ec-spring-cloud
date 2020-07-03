@@ -11,7 +11,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: info,health,prometheus,gateway
+        include: info,health,prometheus,beans
   metrics:
     export:
       prometheus:
@@ -23,7 +23,7 @@ management:
       organization: example.com
       space: develop
 spring:
-  r2dbc:    
+  r2dbc:
     url: r2dbc:mariadb://localhost:3306/items
     username: root
     password: 
