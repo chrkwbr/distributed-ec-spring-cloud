@@ -30,7 +30,7 @@ class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext
 fun main(args: Array<String>) {
     SpringApplicationBuilder()
             .sources(EcApplication::class.java)
-            .properties("context.initializer.classes=${BeansInitializer::class.java.name}")
+            .initializers(BeansInitializer())
             .web(WebApplicationType.REACTIVE)
             .run(*args)
 }

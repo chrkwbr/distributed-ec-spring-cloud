@@ -27,6 +27,6 @@ class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext
 fun main(args: Array<String>) {
     SpringApplicationBuilder()
             .sources(Gateway::class.java)
-            .properties("context.initializer.classes=${BeansInitializer::class.java.name}")
+            .initializers(BeansInitializer())
             .run(*args)
 }
